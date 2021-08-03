@@ -15,3 +15,5 @@ export async function getConnection() {
     console.log(error);
   }
 }
+
+export { sql };
