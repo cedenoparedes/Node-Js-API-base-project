@@ -1,13 +1,13 @@
 import sql from "mssql";
 
 const dbSettings = {
-  user: "dm5imanager",
-  password: "El3men200*",
-  server: "dr-sql-server.database.windows.net",
-  database: "nodeDB",
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER,
+  database: process.env.DB_NAME,
 };
 
-async function getConnection() {
+export async function getConnection() {
   try {
     const pool = await sql.connect(dbSettings);
     return pool;
@@ -15,5 +15,3 @@ async function getConnection() {
     console.log(error);
   }
 }
-
-getConnection();
