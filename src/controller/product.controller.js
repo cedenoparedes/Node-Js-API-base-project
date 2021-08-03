@@ -42,9 +42,26 @@ export const getProductById = async (req, res) => {
       .input("id", sql.Int, id)
       .query(queries.getProductById);
     res.send(result.recordset);
-    console.log(result.recordset);
   } catch (error) {
     res.status(500);
     res.send({ message: "Fail saving the product" });
+  }
+};
+
+export const remuveProductById = async (req, res) => {
+  const { id } = await req.params;
+  if (id == null) {
+    return res.send("Please send a ID");
+  }
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("id", sql.Int, id)
+      .query(queries.remuveProductById);
+    res.send(result);
+  } catch (error) {
+    res.status(500);
+    res.send(error);
   }
 };
