@@ -65,3 +65,23 @@ export const remuveProductById = async (req, res) => {
     res.send(error);
   }
 };
+
+export const updateProductById = async (req, res) => {
+  const { id } = await req.params;
+  const { name } = await req.body;
+  if (name == null || id == null) {
+    return res.send("Please send a ID");
+  }
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("name", sql.VarChar, name)
+      .input("id", sql.Int, id)
+      .query(queries.udpdateProductById);
+    res.send(result);
+  } catch (error) {
+    res.status(500);
+    res.send(error);
+  }
+};
