@@ -26,7 +26,6 @@ export const tokenValidation = (req, res, next) => {
 };
 
 export const verifyToken = (req) => {
-  console.log(req.token);
   const validared = jwt.verify(req.token, config.privateKey, (error) => {
     if (error) {
       console.log(error);
