@@ -8,6 +8,7 @@ const app = express();
 
 /// settings
 app.set("port", config.port);
+app.use(morgan("dev"));
 
 //middlewares
 app.use(express.json());
