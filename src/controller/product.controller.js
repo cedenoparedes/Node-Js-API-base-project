@@ -1,13 +1,19 @@
 import { getConnection, sql, queries } from "../database";
+import { verifyToken } from "./login.controller";
 
 export const getProducts = async (req, res) => {
-  try {
-    const pool = await getConnection();
-    const result = await pool.request().query(queries.getProducts);
-    res.json(result.recordset);
-  } catch (error) {
-    res.status(500);
-    res.send(error);
+  const validated = verifyToken(req);
+  if (validated) {
+    try {
+      const pool = await getConnection();
+      const result = await pool.request().query(queries.getProducts);
+      res.json(result.recordset);
+    } catch (error) {
+      res.status(500);
+      res.send(error);
+    }
+  } else {
+    res.sendStatus(400);
   }
 };
 
